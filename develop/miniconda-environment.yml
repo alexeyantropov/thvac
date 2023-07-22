@@ -1,0 +1,13 @@
+---
+name: hvac-teensy
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip=23.2
+  - pip:
+      - hvac==0.10.1
+      - pyinstaller==5.2
+      - pytest==7.1.2
+      - pytest-cov==4.0.0
