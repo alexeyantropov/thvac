@@ -1,3 +1,6 @@
+# Disclaimer
+Originally I use MacOS for developing and write all scripts for Mac. Ispite of this there isn't any reason for not working on Linux systems but could get some difficulties on Windows.
+
 # VS Code and miniconda intergration
 ## Mac OS
 ### Install the miniconda distro if it's needed 
@@ -11,3 +14,9 @@
 ```
 ### vs code config
 A workspace configutaion into ./.vscode/settings.json
+
+# How to run the test env
+```
+./develop/compose.sh
+```
+You need to run this command from root directory of the git repository. It uses docker and docker compose.
