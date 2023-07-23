@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Common variables.
 env_file='./develop/compose-env.sh'
@@ -10,6 +10,10 @@ if ! test -f $env_file; then
     echo "The env file ${env_file} is not found."
     exit 1
 fi
+
+echo 
+export $(eval "echo \"$(cat $env_file)\"")
+
 source $env_file
 
 if ! test -f $compose_file; then
@@ -28,16 +32,15 @@ docker compose $compose_common_arg up --wait --force-recreate --renew-anon-volum
 
 # Wait for the startup process. Don't use sleep() here! Only pooling!
 while true; do
-    curl -s http://127.0.0.1:${VAULT_PORT}/v1/sys/init | fgrep -q '{"initialized":true}'
+    curl -s ${VAULT_ADDR}:${VAULT_PORT}/v1/sys/init | fgrep -q '{"initialized":true}'
     retval=$?
     test $retval -eq 0 && break
     sleep 1
 done
-echo -e "\nThe vault on port ${VAULT_PORT} has started!\n"
+echo -e "\nThe vault on port ${VAULT_PORT} has started! VAULT_DEV_ROOT_TOKEN_ID = ${VAULT_DEV_ROOT_TOKEN_ID}\n"
 docker ps
 
-# Now it can make smth with the vault.
-# curl ....
+$PYTHON_EXE ./develop/import.py 
 
 # The command waits for Ctrl+C but Ctrl+C makes is trapped.
 echo -e "\nPress Ctrl+C to exit and stop containers."
