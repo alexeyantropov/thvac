@@ -1,15 +1,18 @@
 import hvac
+import requests
 
 class Client:
     def __init__(self, url: str, token: str):
         self.c = hvac.Client(url, token)
+        self.token = token
         if self.c.is_authenticated():
-            return(self) 
-        return(None)
+            self.is_authenticated = True
+        else:
+            self.is_authenticated = False
     
     def token_renew(self) -> bool:
         try:
-            self.c.renew_token()
+            self.c.renew_token(self.token)
             return(True)
         except:
             return(False)
@@ -26,7 +29,7 @@ class Client:
             res = self.c.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=path, secret=secret)
         except:
             return(False)
-        if res.ok:
+        if 'data' in res and 'created_time' in res['data']:
             return(True)
         else:
             return(False)
