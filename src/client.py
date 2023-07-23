@@ -1,5 +1,4 @@
 import hvac
-import requests
 
 class Client:
     def __init__(self, url: str, token: str):
