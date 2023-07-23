@@ -11,10 +11,8 @@ if ! test -f $env_file; then
     exit 1
 fi
 
-echo 
 export $(eval "echo \"$(cat $env_file)\"")
-
-source $env_file
+source $env_file 
 
 if ! test -f $compose_file; then
     echo "The docker compose config is not found."
@@ -32,15 +30,15 @@ docker compose $compose_common_arg up --wait --force-recreate --renew-anon-volum
 
 # Wait for the startup process. Don't use sleep() here! Only pooling!
 while true; do
-    curl -s ${VAULT_ADDR}:${VAULT_PORT}/v1/sys/init | fgrep -q '{"initialized":true}'
+    curl -s ${VAULT_ADDR}/v1/sys/init | fgrep -q '{"initialized":true}'
     retval=$?
     test $retval -eq 0 && break
     sleep 1
 done
-echo -e "\nThe vault on port ${VAULT_PORT} has started! VAULT_DEV_ROOT_TOKEN_ID = ${VAULT_DEV_ROOT_TOKEN_ID}\n"
+echo -e "\nThe vault on ${VAULT_ADDR} has started! VAULT_DEV_ROOT_TOKEN_ID = ${VAULT_DEV_ROOT_TOKEN_ID}\n"
 docker ps
 
-$PYTHON_EXE ./develop/import.py 
+$PYTHON_EXE ./develop/test_data.py 
 
 # The command waits for Ctrl+C but Ctrl+C makes is trapped.
 echo -e "\nPress Ctrl+C to exit and stop containers."
