@@ -7,6 +7,6 @@ dependencies:
   - python=3.9
   - pip=23.2
   - pip:
-      - hvac==0.10.1
+      - hvac==1.1.1
       - pytest==7.1.2
       - pytest-cov==4.0.0
