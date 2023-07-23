@@ -1,5 +1,5 @@
-# hvac-tiny
-A wrapper for the hvac module giving a simpler interface
+# thvac
+The Teensy HVAC is a wrapper for the hvac module giving a simpler interface.
 
 # WTF?
 I use [hvac](https://github.com/hvac/hvac) in my everyday work and the official client basically provides a lot of bricks for building youown local client for your tasks and evironment. And it's OK.

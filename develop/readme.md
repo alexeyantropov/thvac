@@ -10,7 +10,7 @@ Originally I use MacOS for developing and write all scripts for Mac. Ispite of t
 ### Prepare a separate env
 ```
 # ~/miniconda/bin/conda env create -f ./develop/miniconda-environment.yml
-# ~/miniconda/envs/hvac-teensy/bin/pip list local| grep hvac
+# ~/miniconda/envs/thvac/bin/pip list local| grep hvac
 ```
 ### vs code config
 A workspace configutaion into ./.vscode/settings.json

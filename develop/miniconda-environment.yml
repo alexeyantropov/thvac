@@ -1,5 +1,5 @@
 ---
-name: hvac-teensy
+name: thvac
 channels:
   - defaults
   - conda-forge
@@ -8,6 +8,5 @@ dependencies:
   - pip=23.2
   - pip:
       - hvac==0.10.1
-      - pyinstaller==5.2
       - pytest==7.1.2
       - pytest-cov==4.0.0

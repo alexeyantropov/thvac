@@ -1,3 +1,3 @@
 {
-    "python.defaultInterpreterPath": "~/miniconda/envs/hvac-teensy/bin/python"
+    "python.defaultInterpreterPath": "~/miniconda/envs/thvac/bin/python"
 }
