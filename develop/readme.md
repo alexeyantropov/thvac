@@ -1,3 +1,17 @@
+<!-- TOC -->
+
+- [Disclaimer](#disclaimer)
+- [VS Code and miniconda intergration](#vs-code-and-miniconda-intergration)
+    - [Mac OS](#mac-os)
+        - [Install the miniconda distro if it's needed](#install-the-miniconda-distro-if-its-needed)
+        - [Prepare a separate env](#prepare-a-separate-env)
+        - [vs code config](#vs-code-config)
+- [How to run](#how-to-run)
+    - [a test env](#a-test-env)
+    - [tests](#tests)
+
+<!-- /TOC -->
+
 # Disclaimer
 Originally I use MacOS for developing and write all scripts for Mac. Ispite of this there isn't any reason for not working on Linux systems but could get some difficulties on Windows.
 
