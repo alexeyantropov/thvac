@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  vault-service:
+    container_name: vault-container
+    image: ${VAULT_IMAGE}
+    ports:
+      - ${VAULT_PORT}:${VAULT_PORT}
+    environment:
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:${VAULT_PORT}
+      - VAULT_DEV_ROOT_TOKEN_ID=${VAULT_DEV_ROOT_TOKEN_ID}
+    cap_add:
+      - IPC_LOCK
