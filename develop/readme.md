@@ -5,7 +5,7 @@
     - [Mac OS](#mac-os)
         - [Install the miniconda distro if it's needed](#install-the-miniconda-distro-if-its-needed)
         - [Prepare a separate env](#prepare-a-separate-env)
-        - [vs code config](#vs-code-config)
+    - [vs code config](#vs-code-config)
 - [How to run](#how-to-run)
     - [a test env](#a-test-env)
     - [tests](#tests)
@@ -26,8 +26,8 @@ Originally I use MacOS for developing and write all scripts for Mac. Ispite of t
 # ~/miniconda/bin/conda env create -f ./develop/miniconda-environment.yml
 # ~/miniconda/envs/thvac/bin/pip list local| grep hvac
 ```
-### vs code config
-A workspace configutaion into ./.vscode/settings.json
+## vs code config
+A workspace configuration into ./.vscode/settings.json. It contains the path for the miniconda env for syntax and methods highlighting.
 
 # How to run 
 ## a test env

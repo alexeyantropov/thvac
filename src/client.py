@@ -24,10 +24,9 @@ class Client:
             return(dict())
 
     def secret_write(self, mount_point, path, secret) -> bool:
-        """
-        A little check before. Are an old version and the new version similar?
-        If the secrets are not the same, the method update the secret and return
-        True value because there isn't any error.
+        """ A little check
+        Are an old version of a secret and the new one the same?
+        If they are the same, the method does nothin and returns True.
         The check is neccecary to avoid dummy version bumping in kv2 storage.
         """
         secret_old = self.secret_get(mount_point, path)
@@ -54,9 +53,7 @@ class Client:
             return(set())
     
     def mount_create(self, path) -> bool:
-        """
-        The same check as in the secret_write() method.
-        """
+        # If the mount is already present the method does nothing.
         mount_list = self.mount_list()
         if path in mount_list:
             return(True)
