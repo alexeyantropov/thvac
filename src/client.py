@@ -53,9 +53,7 @@ class Client:
             return(set())
     
     def mount_create(self, path) -> bool:
-        """
-        The same check as in the secret_write() method.
-        """
+        # If the mount is already present the method does nothing.
         mount_list = self.mount_list()
         if path in mount_list:
             return(True)
