@@ -16,19 +16,53 @@ class Client:
         except:
             return(False)
 
-    def get_secret(self, mount_point, path) -> dict:
+    def secret_get(self, mount_point, path) -> dict:
         try:
             secret = self.c.secrets.kv.v1.read_secret(mount_point=mount_point, path='data/{}'.format(path))['data']['data']
             return(secret)
         except:
             return(dict())
+
+    def secret_write(self, mount_point, path, secret) -> bool:
+        """
+        A little check before. Are an old version and the new version similar?
+        If the secrets are not the same, the method update the secret and return
+        True value because there isn't any error.
+        The check is neccecary to avoid dummy version bumping in kv2 storage.
+        """
+        secret_old = self.secret_get(mount_point, path)
+        if secret == secret_old:
+            return(True)
         
-    def write_secret(self, mount_point, path, secret) -> bool:
         try:
             res = self.c.secrets.kv.v2.create_or_update_secret(mount_point=mount_point, path=path, secret=secret)
         except:
             return(False)
+        
         if 'data' in res and 'created_time' in res['data']:
             return(True)
         else:
+            return(False)
+        
+    def mount_list(self) -> set:
+        # The method returns set() to provide lookups for O(1) time.
+        try:
+            res = self.c.sys.list_mounted_secrets_engines()['data'] # {'foo/': {...}, 'bar/': {...}}
+            tmp = [ x[0:len(x)-1] for x in res.keys() ] # 'foo/' -> 'foo'
+            return(set(tmp))
+        except:
+            return(set())
+    
+    def mount_create(self, path) -> bool:
+        """
+        The same check as in the secret_write() method.
+        """
+        mount_list = self.mount_list()
+        if path in mount_list:
+            return(True)
+        
+        try:
+            self.c.sys.enable_secrets_engine('kv', path=path, options={'version': 2})
+            return(True)
+        except:
             return(False)

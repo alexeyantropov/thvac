@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -x -e
 
 # Common variables.
 env_file='./develop/compose-env.sh'
@@ -30,9 +30,8 @@ docker compose $compose_common_arg up --wait --force-recreate --renew-anon-volum
 
 # Wait for the startup process. Don't use sleep() here! Only pooling!
 while true; do
-    curl -s ${VAULT_ADDR}/v1/sys/init | fgrep -q '{"initialized":true}'
-    retval=$?
-    test $retval -eq 0 && break
+    ret=$(curl -s ${VAULT_ADDR}/v1/sys/init | fgrep '{"initialized":true}' | wc -l)
+    test $ret -ge 1 && break
     sleep 1
 done
 echo -e "\nThe vault on ${VAULT_ADDR} has started! VAULT_DEV_ROOT_TOKEN_ID = ${VAULT_DEV_ROOT_TOKEN_ID}\n"
